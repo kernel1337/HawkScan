@@ -11,11 +11,11 @@ This script use "Sublist3r" to scan subdomains (https://github.com/aboul3la/Subl
 This script use "waybacktool" to check in waybackmachine (https://github.com/Rhynorater/waybacktool)
 
 # News
-**!** Fix bugs   
-**!** Start: Code optimization
-**!** Update: file and directory function management
-**!** Add: New exclude type, exclude byte number (--exclude 1337b)
-**!** Add: Function to try if the website IP is different of the website domain
+**!** Fix bugs       
+**!** Start: Code optimization       
+**!** Update: file and directory function management     
+**!** Add: New exclude type, exclude byte number (--exclude 1337b)    
+**!** Add: Function to try if the website IP is different of the website domain    
 *(for more details go on CHANGELOG.md)*
 
 # Special features
