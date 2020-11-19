@@ -21,7 +21,7 @@ class mini_scans:
         print("  {} \n".format(r.headers).replace(',','\n'))
         print(LINE)
         with open(directory + '/header.csv', 'w+') as file:
-            file.write(str(head).replace(',','\n'))
+            file.write(str(r.headers).replace(',','\n'))
 
 
     def gitpast(self, url):
