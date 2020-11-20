@@ -133,7 +133,7 @@ class filterManager:
         """
         scoring = 0
 
-        if "b" in req_p:
+        if "b" in exclude[-1] and int(exclude[0]):
             #For exclude bytes number
             req_len = int(req_p.split("b")[0])
             req_bytes = len(req.content)
@@ -791,7 +791,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                 len_req = len(req.content)
 
                 #print(status_link) #DEBUG status response
-                if status_link == 200 and len_req > 50:
+                if status_link == 200:
                     if exclude:
                         if type(req_p) == int:
                             filterM.check_exclude_code(res, req, HOUR)
@@ -1171,7 +1171,7 @@ if __name__ == '__main__':
         for l in words:
             len_w += 1
     if exclude:
-        if "b" in exclude:
+        if "b" in exclude[-1] and int(exclude[0]):
             req_p = exclude
         elif len(exclude) < 5: #Defined if it's int for response http code or strings for url
             req_p = int(exclude)
