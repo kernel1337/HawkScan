@@ -406,7 +406,7 @@ def file_backup(s, res, directory, forbi, HOUR, parsing, filterM):
     """
     size_check = 0
 
-    ext_b = ['.db', '.swp', '.yml', '.xsd', '.xml', '.wml', '.bkp', '..;', '.rar', '.zip', '.bak', '.bac', '.BAK', '.NEW', '.old', 
+    ext_b = ['.db', '.swp', '.yml', '.xsd', '.xml', '.wml', '.bkp', '.rar', '.zip', '.bak', '.bac', '.BAK', '.NEW', '.old', 
             '.bkf', '.bok', '.cgi', '.dat', '.ini', '.log', '.key', '.conf', '.env', '_bak', '_old', '.bak1', '.json', '.lock', 
             '.save', '.atom', '%20../', '..%3B/', '.action', '_backup', '.backup', '.config', '?stats=1', 'authorize/', '.md', '.gz']
     
@@ -1066,6 +1066,7 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
         director = direct[2]
         dire = director
         directory = "sites/" + dire
+
     listdir = os.listdir("sites/")
     for ld in listdir:
         if dire in ld:
@@ -1099,12 +1100,10 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
             if os.path.exists("sites/{}/backup.txt".format(de)):
                 de = "sites/{}".format(de)
                 backup = True
-                creat_other == False
-                start_scan(subdomains, r, stat, de, u_agent, thread, manageDir, header_, forbi)
-            else:
                 creat_other == True
+                start_scan(subdomains, r, stat, de, u_agent, thread, manageDir, header_, forbi)
 
-    if not backup and creat_other:
+    if not backup and not creat_other:
         today_hour = now.strftime("_%m%d%Y_%H%M")
         directory = "sites/{}{}".format(dire, today_hour)
         os.makedirs(directory)
