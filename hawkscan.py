@@ -1065,6 +1065,7 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
         direct = url.split('/')
         director = direct[2]
         dire = director
+        directory = "sites/" + dire
     listdir = os.listdir("sites/")
     for ld in listdir:
         if dire in ld:
