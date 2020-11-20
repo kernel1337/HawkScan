@@ -1051,6 +1051,7 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
 
     backup = False
     found_dire = False
+    creat_other = False
     dire_exists = []
 
     dire = ''
@@ -1097,9 +1098,12 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
             if os.path.exists("sites/{}/backup.txt".format(de)):
                 de = "sites/{}".format(de)
                 backup = True
+                creat_other == False
                 start_scan(subdomains, r, stat, de, u_agent, thread, manageDir, header_, forbi)
+            else:
+                creat_other == True
 
-    if not backup:
+    if not backup and creat_other:
         today_hour = now.strftime("_%m%d%Y_%H%M")
         directory = "sites/{}{}".format(dire, today_hour)
         os.makedirs(directory)
