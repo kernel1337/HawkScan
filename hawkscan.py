@@ -227,10 +227,14 @@ def status(r, stat, directory, u_agent, thread, manageDir):
                     print(LINE)
                     forced = False
                     check_words(url, wordlist, directory, u_agent, thread, forced, nLine)
-    elif check_b == False:
-        os.remove(directory + "/backup.txt")
-        print("restarting scan...")
+    elif not check_b:
+        try:
+            os.remove(directory + "/backup.txt")
+            print("{} Restarting scan...".format(INFO))
+        except:
+            pass
         print(LINE)
+
     if stat == 200:
         check_words(url, wordlist, directory, u_agent, thread)
     elif stat == 301:
@@ -1035,6 +1039,7 @@ def start_scan(subdomains, r, stat, directory, u_agent, thread, manageDir, heade
     status(r, stat, directory, u_agent, thread, manageDir)
     scan_error(directory, forbi)
     create_report(directory, header_)
+    sys.exit()
 
 
 def create_file(r, url, stat, u_agent, thread, subdomains):
@@ -1051,7 +1056,7 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
 
     backup = False
     found_dire = False
-    creat_other = False
+    creat_other = True
     dire_exists = []
 
     dire = ''
@@ -1075,8 +1080,6 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
 
     if not found_dire:
         os.makedirs(directory) # creat the dir
-        if subdomains:
-            subdomain(subdomains)
         miniScan.get_header(url, directory)
         miniScan.get_dns(url, directory)
         miniScan.who_is(url, directory)
@@ -1092,18 +1095,15 @@ def create_file(r, url, stat, u_agent, thread, subdomains):
         query_dork(url)
         miniScan.check_localhost(url)
         miniScan.check_ip(dire, url)
-        status(r, stat, directory, u_agent, thread, manageDir)
-        scan_error(directory, forbi)
-        create_report(directory, header_)
+        creat_other == False
+        start_scan(subdomains, r, stat, directory, u_agent, thread, manageDir, header_, forbi)
     else:
         for de in dire_exists:
             if os.path.exists("sites/{}/backup.txt".format(de)):
                 de = "sites/{}".format(de)
                 backup = True
-                creat_other == True
-                start_scan(subdomains, r, stat, de, u_agent, thread, manageDir, header_, forbi)
-
-    if not backup and not creat_other:
+                start_scan(subdomains, r, stat, de, u_agent, thread, manageDir, header_, forbi)       
+    if not backup and creat_other:
         today_hour = now.strftime("_%m%d%Y_%H%M")
         directory = "sites/{}{}".format(dire, today_hour)
         os.makedirs(directory)
